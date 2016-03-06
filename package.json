@@ -24,7 +24,6 @@
     "url": "https://github.com/pensierinmusica/firstline/issues"
   },
   "homepage": "https://github.com/pensierinmusica/firstline",
-  "dependencies": {},
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
@@ -33,6 +32,9 @@
     "js-promisify": "^1.0.3",
     "mocha": "^2.4.5",
     "rimraf": "^2.5.2"
+  },
+  "engines": {
+    "node": ">=4.0.0"
   },
   "scripts": {
     "test": "mocha",
