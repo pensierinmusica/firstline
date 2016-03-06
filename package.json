@@ -29,7 +29,7 @@
     "chai-as-promised": "^5.2.0",
     "coveralls": "^2.11.8",
     "istanbul": "^0.4.2",
-    "js-promisify": "^1.0.3",
+    "js-promisify": "^1.0.4",
     "mocha": "^2.4.5",
     "rimraf": "^2.5.2"
   },
