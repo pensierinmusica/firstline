@@ -1,10 +1,10 @@
 'use strict';
 
+var promisify = require('js-promisify');
 var chai = require('chai');
 var chaiAsPromised = require("chai-as-promised");
 var should = require('chai').should();
 var fs = require('fs');
-var FS = require("q-io/fs");
 var path = require('path');
 var rimraf = require('rimraf');
 
@@ -33,32 +33,32 @@ describe('firstline', function () {
 
     afterEach(function () {
       // Delete mock CSV file
-      return FS.remove(filePath);
+      return promisify(fs.unlink, [filePath]);
     });
 
     it('should reject if file does not exist', function () {
-      return FS.write(filePath, mocks.shortLine)
+      return promisify(fs.writeFile, [filePath, mocks.shortLine])
       .then(function () {
         return firstline(wrongFilePath).should.be.rejected;
       });
     });
 
     it('should return the first short line of file', function () {
-      return FS.write(filePath, mocks.shortLine)
+      return promisify(fs.writeFile, [filePath, mocks.shortLine])
       .then(function () {
         return firstline(filePath).should.eventually.equal('abc');
       });
     });
 
     it('should return the first long line of file', function () {
-      return FS.write(filePath, mocks.longLine)
+      return promisify(fs.writeFile, [filePath, mocks.longLine])
       .then(function () {
         return firstline(filePath).should.eventually.equal(mocks.longLine.split('\n')[0]);
       });
     });
 
     it('should return the first empty line of file', function () {
-      return FS.write(filePath, '')
+      return promisify(fs.writeFile, [filePath, ''])
       .then(function () {
         return firstline(filePath).should.eventually.equal('');
       });

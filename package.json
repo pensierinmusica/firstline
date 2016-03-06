@@ -24,16 +24,14 @@
     "url": "https://github.com/pensierinmusica/firstline/issues"
   },
   "homepage": "https://github.com/pensierinmusica/firstline",
-  "dependencies": {
-    "q": "^1.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "^2.1.0",
     "chai-as-promised": "^4.2.0",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.6",
+    "js-promisify": "^1.0.2",
     "mocha": "^2.1.0",
-    "q-io": "^1.11.6",
     "rimraf": "^2.2.8"
   },
   "scripts": {

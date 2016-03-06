@@ -1,10 +1,9 @@
 'use strict';
 
 var fs = require('fs');
-var Q = require('q');
 
 module.exports = function (path) {
-  return Q.promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject) {
     var rs = fs.createReadStream(path, {encoding: 'utf8'});
     var acc = '';
     var pos = 0;

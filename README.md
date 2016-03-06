@@ -6,9 +6,9 @@
 
 ## Introduction
 
-Firstline is a [npm](http://npmjs.org) async module for [NodeJS](http://nodejs.org/), that **reads and returns the first line of any file**. Based on [q](http://github.com/kriskowal/q), supports promises and streams. It is well tested and built for high performance.
+Firstline is a [npm](http://npmjs.org) async module for [NodeJS](http://nodejs.org/), that **reads and returns the first line of any file**. It uses native JS promises and streams (requires Node >= v4.0.0). It is well tested and built for high performance.
 
-It is particularly suited if you need to programmatically access the first line of a large amount of files, while handling errors when they occur.
+It is particularly suited when you need to programmatically access the first line of a large amount of files, while handling errors if they occur.
 
 ## Install
 
