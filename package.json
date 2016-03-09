@@ -1,6 +1,6 @@
 {
   "name": "firstline",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "description": "Async npm module for Node JS that reads the first line of a file",
   "main": "firstline.js",
   "repository": {
