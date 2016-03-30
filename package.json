@@ -1,11 +1,19 @@
 {
   "name": "firstline",
-  "version": "1.2.0",
   "description": "Async npm module for Node JS that reads the first line of a file",
   "main": "firstline.js",
+  "scripts": {
+    "test": "mocha",
+    "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/pensierinmusica/firstline.git"
+  },
+  "homepage": "https://github.com/pensierinmusica/firstline",
+  "bugs": {
+    "url": "https://github.com/pensierinmusica/firstline/issues"
   },
   "keywords": [
     "read",
@@ -20,26 +28,27 @@
   ],
   "author": "Alessandro Zanardi",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pensierinmusica/firstline/issues"
+  "engines": {
+    "node": ">=4.0.0"
   },
-  "homepage": "https://github.com/pensierinmusica/firstline",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    },
+    "ghooks": {
+      "pre-commit": "mocha"
+    }
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
     "coveralls": "^2.11.8",
+    "cz-conventional-changelog": "^1.1.5",
+    "ghooks": "^1.0.3",
     "istanbul": "^0.4.2",
     "js-promisify": "^1.1.0",
     "mocha": "^2.4.5",
     "rimraf": "^2.5.2",
     "semantic-release": "^4.3.5"
-  },
-  "engines": {
-    "node": ">=4.0.0"
-  },
-  "scripts": {
-    "test": "mocha",
-    "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   }
 }
