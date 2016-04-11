@@ -8,7 +8,7 @@ var fs = require('fs');
 var path = require('path');
 var rimraf = require('rimraf');
 
-var firstline = require('../firstline.js');
+var firstline = require('../index.js');
 var mocks = require('./mocks.js');
 
 chai.use(chaiAsPromised);
