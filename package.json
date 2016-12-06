@@ -2,6 +2,7 @@
   "name": "firstline",
   "description": "Async npm module for Node JS that reads the first line of a file",
   "main": "index.js",
+  "version": "0.0.1",
   "scripts": {
     "test": "mocha",
     "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
