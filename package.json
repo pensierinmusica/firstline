@@ -2,13 +2,14 @@
   "name": "firstline",
   "description": "Async npm module for Node JS that reads the first line of a file",
   "main": "index.js",
+  "version": "1.2.1",
   "scripts": {
     "test": "mocha",
     "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
-    "type": "git", 
+    "type": "git",
     "url": "https://github.com/pensierinmusica/firstline.git"
   },
   "homepage": "https://github.com/pensierinmusica/firstline",
