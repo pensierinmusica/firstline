@@ -15,7 +15,8 @@ module.exports = function (path) {
         index !== -1 ? rs.close() : pos += chunk.length;
       })
       .on('close', function () {
-        resolve(acc.slice(0, pos + index));
+        index === -1 ? resolve(acc) : resolve(acc.slice(0, pos + index));;
+        
       })
       .on('error', function (err) {
         reject(err);
