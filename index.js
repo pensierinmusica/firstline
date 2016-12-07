@@ -12,10 +12,15 @@ module.exports = function (path) {
       .on('data', function (chunk) {
         index = chunk.indexOf('\n');
         acc += chunk;
-        index !== -1 ? rs.close() : pos += chunk.length;
+        if (index === -1) {
+          pos += chunk.length;
+        } else {
+          pos += index;
+          rs.close();
+        }
       })
       .on('close', function () {
-        resolve(acc.slice(0, pos + index));
+        resolve(acc.slice(0, pos));
       })
       .on('error', function (err) {
         reject(err);
