@@ -1,23 +1,23 @@
 'use strict';
 
-var promisify = require('js-promisify');
-var chai = require('chai');
-var chaiAsPromised = require("chai-as-promised");
-var should = require('chai').should();
-var fs = require('fs');
-var path = require('path');
-var rimraf = require('rimraf');
+const promisify = require('js-promisify');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
+const fs = require('fs');
+const path = require('path');
+const rimraf = require('rimraf');
 
-var firstline = require('../index.js');
-var mocks = require('./mocks.js');
+const firstline = require('../index.js');
+const mocks = require('./mocks.js');
 
+chai.should();
 chai.use(chaiAsPromised);
 
 describe('firstline', function () {
 
-  var dirPath = path.join(__dirname, 'tmp/');
-  var filePath = dirPath + 'test.txt';
-  var wrongFilePath = dirPath + 'no-test.txt';
+  const dirPath = path.join(__dirname, 'tmp/');
+  const filePath = dirPath + 'test.txt';
+  const wrongFilePath = dirPath + 'no-test.txt';
 
   before(function () {
     // Make "tmp" folder
@@ -33,35 +33,53 @@ describe('firstline', function () {
 
     afterEach(function () {
       // Delete mock CSV file
-      return promisify(fs.unlink, [filePath]);
+      rimraf.sync(filePath);
     });
 
-    it('should reject if file does not exist', function () {
-      return promisify(fs.writeFile, [filePath, mocks.shortLine])
-      .then(function () {
-        return firstline(wrongFilePath).should.be.rejected;
-      });
+    it('should reject if the file does not exist', function () {
+      return firstline(wrongFilePath).should.be.rejected;
     });
 
-    it('should return the first short line of file', function () {
-      return promisify(fs.writeFile, [filePath, mocks.shortLine])
-      .then(function () {
-        return firstline(filePath).should.eventually.equal('abc');
-      });
+    it('should return the first line of a file and default to `\\n` line ending', function () {
+      return promisify(fs.writeFile, [filePath, 'abc\ndef\nghi'])
+        .then(function () {
+          return firstline(filePath).should.eventually.equal('abc');
+        });
     });
 
-    it('should return the first long line of file', function () {
+    it('should work correctly if the first line is long', function () {
       return promisify(fs.writeFile, [filePath, mocks.longLine])
-      .then(function () {
-        return firstline(filePath).should.eventually.equal(mocks.longLine.split('\n')[0]);
-      });
+        .then(function () {
+          return firstline(filePath).should.eventually.equal(mocks.longLine.split('\n')[0]);
+        });
     });
 
-    it('should return the first empty line of file', function () {
+    it('should return an empty line if the file is empty', function () {
       return promisify(fs.writeFile, [filePath, ''])
-      .then(function () {
-        return firstline(filePath).should.eventually.equal('');
-      });
+        .then(function () {
+          return firstline(filePath).should.eventually.equal('');
+        });
+    });
+
+    it('should work with a different line ending when specified correctly', function () {
+      return promisify(fs.writeFile, [filePath, 'abc\rdef\rghi'])
+        .then(function () {
+          return firstline(filePath, '\r').should.eventually.equal('abc');
+        });
+    });
+
+    it('should return the entire file if the specified line ending is wrong', function () {
+      return promisify(fs.writeFile, [filePath, 'abc\ndef\nghi'])
+        .then(function () {
+          return firstline(filePath, '\r').should.eventually.equal('abc\ndef\nghi');
+        });
+    });
+
+    it('should handle BOM', function () {
+      return promisify(fs.writeFile, [filePath, '\uFEFFabc\ndef'])
+        .then(function () {
+          return firstline(filePath).should.eventually.equal('abc');
+        });
     });
 
   });

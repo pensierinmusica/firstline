@@ -1,16 +1,16 @@
 'use strict';
 
-var fs = require('fs');
+const fs = require('fs');
 
-module.exports = function (path) {
+module.exports = function (path, lineEnding = '\n') {
   return new Promise(function (resolve, reject) {
-    var rs = fs.createReadStream(path, {encoding: 'utf8'});
-    var acc = '';
-    var pos = 0;
-    var index;
+    const rs = fs.createReadStream(path, {encoding: 'utf8'});
+    let acc = '';
+    let pos = 0;
+    let index;
     rs
       .on('data', function (chunk) {
-        index = chunk.indexOf('\n');
+        index = chunk.indexOf(lineEnding);
         acc += chunk;
         if (index === -1) {
           pos += chunk.length;
@@ -20,10 +20,10 @@ module.exports = function (path) {
         }
       })
       .on('close', function () {
-        resolve(acc.slice(0, pos));
+        resolve(acc.slice(acc.charCodeAt(0) === 0xFEFF ? 1 : 0, pos));
       })
       .on('error', function (err) {
         reject(err);
-      })
+      });
   });
 };
