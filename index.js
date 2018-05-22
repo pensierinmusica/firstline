@@ -2,15 +2,20 @@
 
 const fs = require('fs');
 
-module.exports = (path, lineEnding = '\n') => {
+const defOpts = {
+  encoding: 'utf8',
+  lineEnding: '\n'
+};
+
+module.exports = (path, opts = defOpts) => {
   return new Promise((resolve, reject) => {
-    const rs = fs.createReadStream(path, {encoding: 'utf8'});
+    const rs = fs.createReadStream(path, {encoding: opts.encoding});
     let acc = '';
     let pos = 0;
     let index;
     rs
       .on('data', chunk => {
-        index = chunk.indexOf(lineEnding);
+        index = chunk.indexOf(opts.lineEnding);
         acc += chunk;
         if (index === -1) {
           pos += chunk.length;

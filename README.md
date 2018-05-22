@@ -18,10 +18,12 @@ It is particularly suited when you need to programmatically access the first lin
 
 ## Usage
 
-`firstline(filePath, [lineEnding])`
+`firstline(filePath, [opts])`
 
 - filePath (String): the full path to the file you want to read.
-- lineEnding (String, optional): the character used for line ending (defaults to `\n`).
+- opts (Object, optional):
+  - encoding (String), set the file encoding (must be [supported by Node.js](https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings)).
+  - lineEnding (String), the character used for line ending (defaults to `\n`).
 
 Incrementally reads data from `filePath` until it reaches the end of the first line.
 
@@ -39,7 +41,7 @@ Returns a promise, eventually fulfilled with a string.
 firstline('./my-file.txt');
 // -> Returns a promise that will be fulfilled with 'abc'.
 
-firstline('./my-file.txt', '\r');
+firstline('./my-file.txt', { lineEnding: '\r' });
 // -> Same as above, but using '\r' as line ending.
 ```
 

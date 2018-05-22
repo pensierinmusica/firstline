@@ -53,13 +53,13 @@ describe('firstline', () => {
     it(
       'should work with a different line ending when specified correctly',
       () => promisify(fs.writeFile, [filePath, 'abc\rdef\rghi'])
-        .then(() => firstline(filePath, '\r').should.eventually.equal('abc'))
+        .then(() => firstline(filePath, { lineEnding: '\r' }).should.eventually.equal('abc'))
     );
 
     it(
       'should return the entire file if the specified line ending is wrong',
       () => promisify(fs.writeFile, [filePath, 'abc\ndef\nghi'])
-        .then(() => firstline(filePath, '\r').should.eventually.equal('abc\ndef\nghi'))
+        .then(() => firstline(filePath, { lineEnding: '\r' }).should.eventually.equal('abc\ndef\nghi'))
     );
 
     it(
