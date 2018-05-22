@@ -1,6 +1,6 @@
 # Firstline
 
-[![Build status](https://img.shields.io/travis/pensierinmusica/firstline.svg)](https://travis-ci.org/pensierinmusica/firstline)
+[![Build status](https://img.shields.io/travis/pensierinmusica/firstline.svg)](https://travis-ci.com/pensierinmusica/firstline)
 [![Test coverage](https://img.shields.io/coveralls/pensierinmusica/firstline.svg)](https://coveralls.io/r/pensierinmusica/firstline)
 [![Dependencies](https://img.shields.io/david/pensierinmusica/firstline.svg)](https://www.npmjs.com/package/firstline)
 [![Npm version](https://img.shields.io/npm/v/firstline.svg)](https://www.npmjs.com/package/firstline)
