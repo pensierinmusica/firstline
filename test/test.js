@@ -13,74 +13,60 @@ const mocks = require('./mocks.js');
 chai.should();
 chai.use(chaiAsPromised);
 
-describe('firstline', function () {
+describe('firstline', () => {
 
   const dirPath = path.join(__dirname, 'tmp/');
   const filePath = dirPath + 'test.txt';
   const wrongFilePath = dirPath + 'no-test.txt';
 
-  before(function () {
-    // Make "tmp" folder
-    fs.mkdirSync(dirPath);
-  });
+  before(() => fs.mkdirSync(dirPath)); // Make "tmp" folder
 
-  after(function () {
-    // Delete "tmp" folder
-    rimraf.sync(dirPath);
-  });
+  after(() => rimraf.sync(dirPath)); // Delete "tmp" folder
 
-  describe('#check', function () {
+  describe('#check', () => {
 
-    afterEach(function () {
-      // Delete mock CSV file
-      rimraf.sync(filePath);
-    });
+    afterEach(() => rimraf.sync(filePath)); // Delete mock CSV file
 
-    it('should reject if the file does not exist', function () {
-      return firstline(wrongFilePath).should.be.rejected;
-    });
+    it(
+      'should reject if the file does not exist',
+      () => firstline(wrongFilePath).should.be.rejected
+    );
 
-    it('should return the first line of a file and default to `\\n` line ending', function () {
-      return promisify(fs.writeFile, [filePath, 'abc\ndef\nghi'])
-        .then(function () {
-          return firstline(filePath).should.eventually.equal('abc');
-        });
-    });
+    it(
+      'should return the first line of a file and default to `\\n` line ending',
+      () => promisify(fs.writeFile, [filePath, 'abc\ndef\nghi'])
+        .then(() => firstline(filePath).should.eventually.equal('abc'))
+    );
 
-    it('should work correctly if the first line is long', function () {
-      return promisify(fs.writeFile, [filePath, mocks.longLine])
-        .then(function () {
-          return firstline(filePath).should.eventually.equal(mocks.longLine.split('\n')[0]);
-        });
-    });
+    it(
+      'should work correctly if the first line is long',
+      () => promisify(fs.writeFile, [filePath, mocks.longLine])
+        .then(() => firstline(filePath).should.eventually.equal(mocks.longLine.split('\n')[0]))
+    );
 
-    it('should return an empty line if the file is empty', function () {
-      return promisify(fs.writeFile, [filePath, ''])
-        .then(function () {
-          return firstline(filePath).should.eventually.equal('');
-        });
-    });
+    it(
+      'should return an empty line if the file is empty',
+      () => promisify(fs.writeFile, [filePath, ''])
+        .then(() => firstline(filePath).should.eventually.equal(''))
+    );
 
-    it('should work with a different line ending when specified correctly', function () {
-      return promisify(fs.writeFile, [filePath, 'abc\rdef\rghi'])
-        .then(function () {
-          return firstline(filePath, '\r').should.eventually.equal('abc');
-        });
-    });
+    it(
+      'should work with a different line ending when specified correctly',
+      () => promisify(fs.writeFile, [filePath, 'abc\rdef\rghi'])
+        .then(() => firstline(filePath, '\r').should.eventually.equal('abc'))
+    );
 
-    it('should return the entire file if the specified line ending is wrong', function () {
-      return promisify(fs.writeFile, [filePath, 'abc\ndef\nghi'])
-        .then(function () {
-          return firstline(filePath, '\r').should.eventually.equal('abc\ndef\nghi');
-        });
-    });
+    it(
+      'should return the entire file if the specified line ending is wrong',
+      () => promisify(fs.writeFile, [filePath, 'abc\ndef\nghi'])
+        .then(() => firstline(filePath, '\r').should.eventually.equal('abc\ndef\nghi'))
+    );
 
-    it('should handle BOM', function () {
-      return promisify(fs.writeFile, [filePath, '\uFEFFabc\ndef'])
-        .then(function () {
-          return firstline(filePath).should.eventually.equal('abc');
-        });
-    });
+    it(
+      'should handle BOM',
+      () => promisify(fs.writeFile, [filePath, '\uFEFFabc\ndef'])
+        .then(() => firstline(filePath).should.eventually.equal('abc'))
+    );
 
   });
 
