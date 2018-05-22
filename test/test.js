@@ -51,6 +51,12 @@ describe('firstline', () => {
     );
 
     it(
+      'should work with a different encoding when specified correctly',
+      () => promisify(fs.writeFile, [filePath, 'abc\ndef\nghi', { encoding: 'ascii' }])
+        .then(() => firstline(filePath, { encoding: 'ascii' }).should.eventually.equal('abc'))
+    );
+
+    it(
       'should work with a different line ending when specified correctly',
       () => promisify(fs.writeFile, [filePath, 'abc\rdef\rghi'])
         .then(() => firstline(filePath, { lineEnding: '\r' }).should.eventually.equal('abc'))

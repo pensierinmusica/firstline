@@ -2,12 +2,12 @@
 
 const fs = require('fs');
 
-const defOpts = {
-  encoding: 'utf8',
-  lineEnding: '\n'
-};
-
-module.exports = (path, opts = defOpts) => {
+module.exports = (path, usrOpts) => {
+  const opts = {
+    encoding: 'utf8',
+    lineEnding: '\n'
+  };
+  Object.assign(opts, usrOpts);
   return new Promise((resolve, reject) => {
     const rs = fs.createReadStream(path, {encoding: opts.encoding});
     let acc = '';
