@@ -8,8 +8,7 @@
     "pre-commit": "npm test",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once --pro",
-    "test": "npm run lint && nyc mocha",
-    "test-travis": "npm run lint && nyc mocha"
+    "test": "npm run lint && nyc mocha"
   },
   "repository": {
     "type": "git",
